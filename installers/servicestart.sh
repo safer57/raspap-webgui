@@ -60,7 +60,7 @@ fi
 systemctl stop systemd-networkd
 systemctl stop hostapd.service
 systemctl stop dnsmasq.service
-systemctl stop dhcpcd.service
+systemctl stop dhcpcd@wlan0.service
 systemctl stop 'raspap-network-activity@*.service'
 
 if [ "${action}" = "stop" ]; then
@@ -122,7 +122,7 @@ echo "Starting network services..."
 systemctl start hostapd.service
 sleep "${seconds}"
 
-systemctl start dhcpcd.service
+systemctl start dhcpcd@wlan0.service
 sleep "${seconds}"
 
 systemctl start dnsmasq.service
