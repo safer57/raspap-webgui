@@ -83,7 +83,7 @@ set -eo pipefail
 
 function _main() {
     # set defaults
-    repo="RaspAP/raspap-webgui" # override with -r, --repo option
+    repo="safer57/raspap-webgui" # override with -r, --repo option
     repo_common="$repo"
 
     _parse_params "$@"
@@ -98,7 +98,7 @@ function _main() {
 
 function _parse_params() {
     # default option values
-    assume_yes=0
+    assume_yes=1
     upgrade=0
     update=0
     ovpn_option=1
@@ -260,10 +260,11 @@ function _get_release() {
     fi
 
     if [ "$insiders" == 1 ]; then
-        repo="RaspAP/raspap-insiders"
-        repo_common="RaspAP/raspap-webgui"
-        readonly RASPAP_INSIDERS_LATEST=$(curl -s "https://api.raspap.com/repos/RaspAP/raspap-insiders/releases/latest/" | grep -Po '"tag_name": "\K.*?(?=")')
-        readonly RASPAP_RELEASE="${RASPAP_INSIDERS_LATEST} Insiders"
+        echo -e "No Insiders Edition available. Using latest release instead."
+        #repo="RaspAP/raspap-insiders"
+        #repo_common="RaspAP/raspap-webgui"
+        #readonly RASPAP_INSIDERS_LATEST=$(curl -s "https://api.raspap.com/repos/RaspAP/raspap-insiders/releases/latest/" | grep -Po '"tag_name": "\K.*?(?=")')
+        #readonly RASPAP_RELEASE="${RASPAP_INSIDERS_LATEST} Insiders"
     else
         readonly RASPAP_RELEASE="${RASPAP_LATEST}"
     fi

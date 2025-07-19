@@ -16,9 +16,9 @@
         "admin",
         "app"
     ],
-    "homepage": "https://github.com/raspap/raspap-webgui",
+    "homepage": "https://github.com/safer57/raspap-webgui",
     "bugs": {
-        "url": "https://github.com/raspap/raspap-webgui/issues"
+        "url": "https://github.com/safer57/raspap-webgui/issues"
     },
     "license": "GPL-3.0",
     "author": "RaspAP Developers",
@@ -28,7 +28,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/raspap/raspap-webgui.git"
+        "url": "https://github.com/safer57/raspap-webgui.git"
     },
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/"

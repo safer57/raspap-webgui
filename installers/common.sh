@@ -1046,7 +1046,8 @@ function _install_complete() {
                 echo "Installation reboot aborted."
                 exit 0
             fi
-            sudo shutdown -r now || _install_status 1 "Unable to execute shutdown"
+            echo -n "Do not reboot now ! You must first configure your WiFi connection in the RaspAP web interface."
+            #sudo shutdown -r now || _install_status 1 "Unable to execute shutdown"
         fi
     fi
 }
