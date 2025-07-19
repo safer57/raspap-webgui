@@ -283,10 +283,10 @@ function SaveHostAPDConfig($wpa_array, $enc_types, $modes, $interfaces, $reg_dom
     $iface = validateInterface($_POST['interface']) ? $_POST['interface'] : RASPI_WIFI_AP_INTERFACE;
 
     $ap_iface = $iface; // the hostap AP interface
-    $cli_iface = $iface; // the wifi client interface
+    $cli_iface = $cli_iface2; // the wifi client interface
     $session_iface = $iface; // the interface that the UI needs to monitor for data usage etc.
     if ($wifiAPEnable) { // for AP-STA we monitor the uap0 interface, which is always the ap interface.
-        $ap_iface = $session_iface = 'uap0';
+        $ap_iface = $session_iface = 'wlan0';
     }
     if ($bridgedEnable) { // for bridged mode we monitor the bridge, but keep the selected interface as AP.
         $cli_iface = $session_iface = 'br0';

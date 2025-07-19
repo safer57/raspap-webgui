@@ -210,11 +210,13 @@ function getWifiInterface()
     // check for 2nd wifi interface -> wifi client on different interface
     exec("iw dev | awk '$1==\"Interface\" && $2!=\"$iface\" {print $2}'", $iface2);
     $client_iface = $_SESSION['wifi_client_interface'] = empty($iface2) ? $iface : trim($iface2[0]);
+    // the client interface for WiFi AP Client is always the 2nd interface
+    $client_iface2 = trim($iface2[0]);
 
     // handle special case for RPi Zero W in AP-STA mode
-    if ($client_iface === "uap0" && ($arrHostapdConf['WifiAPEnable'] ?? 0)) {
-        $_SESSION['wifi_client_interface'] = $iface;
-        $_SESSION['ap_interface'] = $client_iface;
+    if ($client_iface2 === "wlan1" && ($arrHostapdConf['WifiAPEnable'] ?? 0)) {
+        $_SESSION['wifi_client_interface'] = $client_iface2;
+        $_SESSION['ap_interface'] = $iface;
     }
 }
 
@@ -228,10 +230,10 @@ function reinitializeWPA($force)
 {
     $iface = escapeshellarg($_SESSION['wifi_client_interface']);
     if ($force == true) {
-        $cmd = "sudo /bin/rm /var/run/wpa_supplicant/$iface";
+        $cmd = "sudo /bin/rm /var/run/wpa_supplicant/$client_iface";
         $result = shell_exec($cmd);
     }
-    $cmd = "sudo wpa_supplicant -B -Dnl80211 -c/etc/wpa_supplicant/wpa_supplicant.conf -i$iface";
+    $cmd = "sudo wpa_supplicant -B -Dnl80211 -c/etc/wpa_supplicant/wpa_supplicant.conf -i$client_iface";
     $result = shell_exec($cmd);
     sleep(1);
     return $result;
