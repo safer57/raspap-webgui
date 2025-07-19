@@ -23,7 +23,7 @@ function do_bridged_mode() {
 
 sudo systemctl stop systemd-networkd
 sudo systemctl stop hostapd
-sudo systemctl stop dhcpcd@wlan0
+sudo systemctl stop dhcpcd
 sudo systemctl stop dnsmasq
 
 if [ "$1" = "force-routed" ]
