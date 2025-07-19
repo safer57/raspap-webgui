@@ -299,7 +299,7 @@ function SaveHostAPDConfig($wpa_array, $enc_types, $modes, $interfaces, $reg_dom
     // Save previous Client mode status when Bridged
     $cfg['WifiAPEnable'] = ($bridgedEnable == 1 ? $arrHostapdConf['WifiAPEnable'] : $wifiAPEnable);
     $cfg['BridgedEnable'] = $bridgedEnable;
-    $cfg['RepeaterEnable'] = $repeaterEnable;
+    $cfg['RepeaterEnable'] = 1; //$repeaterEnable;
     $cfg['WifiManaged'] = $cli_iface;
     write_php_ini($cfg, RASPI_CONFIG.'/hostapd.ini');
     $_SESSION['ap_interface'] = $session_iface;
@@ -480,7 +480,7 @@ function SaveHostAPDConfig($wpa_array, $enc_types, $modes, $interfaces, $reg_dom
         } elseif ($wifiAPEnable == 1) {
             $config = array_keys(getDefaultNetOpts('dhcp','options'));
             $config[] = PHP_EOL.'# RaspAP wlan0 configuration';
-            $config[] = 'interface wlan0 #$wifiAPEnable';
+            $config[] = 'interface wlan0';
             $config[] = 'static ip_address='.$ip_address;
             $config[] = 'nohook wpa_supplicant';
             $config[] = PHP_EOL;
