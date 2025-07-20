@@ -479,7 +479,7 @@ function SaveHostAPDConfig($wpa_array, $enc_types, $modes, $interfaces, $reg_dom
             }
         } elseif ($wifiAPEnable == 1) {
             $config = array_keys(getDefaultNetOpts('dhcp','options'));
-            $config = [ '# RaspAP '.$ap_iface.' configuration' ];
+            $config[] = PHP_EOL.'# RaspAP wlan0 configuration';
             $config[] = 'interface '.$ap_iface;
             $config[] = 'static ip_address='.$ip_address;
             $config[] = 'static routers='.$routers;
