@@ -23,7 +23,11 @@
       "option ntp_servers": null,
       "require dhcp_server_identifier": null,
       "slaac private": null,
-      "nohook lookup-hostname": null
+      "nohook lookup-hostname": null,
+      "noarp": null,
+      "ipv4only": null,
+      "noipv6": null,
+      "denyinterfaces wlan1 eth0": null
     }
   },
   "dnsmasq": {

@@ -479,10 +479,18 @@ function SaveHostAPDConfig($wpa_array, $enc_types, $modes, $interfaces, $reg_dom
             }
         } elseif ($wifiAPEnable == 1) {
             $config = array_keys(getDefaultNetOpts('dhcp','options'));
-            $config[] = PHP_EOL.'# RaspAP wlan0 configuration';
-            $config[] = 'interface wlan0';
+            $config = [ '# RaspAP '.$ap_iface.' configuration' ];
+            $config[] = 'interface '.$ap_iface;
             $config[] = 'static ip_address='.$ip_address;
-            $config[] = 'nohook wpa_supplicant';
+            $config[] = 'static routers='.$routers;
+            $config[] = 'static domain_name_server='.$domain_name_server;
+            if (is_int($client_metric)) {
+                $ap_metric = (int)$client_metric + 1;
+                $config[] = 'metric '.$ap_metric;
+            } else {
+                $status->addMessage('Unable to obtain metric value for client interface. Repeater mode inactive.', 'warning');
+                $repeaterEnable = false;
+            }
             $config[] = PHP_EOL;
         } else {
             $config = updateDhcpcdConfig($ap_iface, $jsonData, $ip_address, $routers, $domain_name_server);
